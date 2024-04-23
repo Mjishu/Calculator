@@ -2,9 +2,10 @@ function populate(){
     const displayELement = document.getElementById("displayElement");
     const clearButton = document.getElementById("clearButton")
 
-    const buttons = document.querySelectorAll(".numberInput")
+    const numberButtons = document.querySelectorAll(".numberInput")
+    const operationButtons = document.querySelectorAll(".operationInput")
 
-    buttons.forEach(button =>{
+    numberButtons.forEach(button =>{
         button.addEventListener("click", () => {
             displayELement.innerHTML += button.innerHTML;
         })
@@ -14,7 +15,11 @@ function populate(){
         displayELement.innerHTML = ""
     })
 
-    //todo : get operations 
+    operationButtons.forEach(button =>{
+        button.addEventListener("click",()=>{
+            console.log(button.innerHTML)
+        })
+    })
 }
 
 export{populate}
