@@ -36,8 +36,13 @@ function createDisplay(){
 
     const clearBtn = document.createElement("button");
     clearBtn.setAttribute('id', "clearButton")
-    clearBtn.innerHTML = "clear"
-    content.append(displayEle,clearBtn)
+    clearBtn.innerHTML = "Clear"
+
+    const enterButton = document.createElement("button");
+    enterButton.setAttribute("id", "enterButton");
+    enterButton.innerHTML = "Enter"
+
+    content.append(displayEle,clearBtn,enterButton)
 }
 
 
