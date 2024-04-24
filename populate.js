@@ -26,7 +26,10 @@ function operationButtonsCaller(displayELe){
 function clearButtonCaller(displayELe){
     const clearButton = document.getElementById("clearButton");
     clearButton.addEventListener("click", ()=>{
-        clearItems(displayELe);
+        displayELe.innerHTML = ""
+        beforeOp = ""
+        afterOp = ""
+        operationVariable = ""
     })
 }
 
@@ -52,24 +55,25 @@ function numberButtonCaller(displayELe){
 const operationOptions = ["+","-" ,"*","÷" ]
 const operationNames = ["add", "subtract","multiply" ,"divide"]
 
+const add = (x,y) => Number(x)+Number(y);
+const subtract =(x,y) => x-y;
+const multiply = (x,y) => x*y;
+const divide = (x,y) => (y!== 0? x/y:NaN);
+
+const operations = [add,subtract,multiply,divide];
 
 function EnterFunction(displayELe){
     const enterBtn = document.getElementById("enterButton");
-    enterBtn.addEventListener("click",()=>{
-        console.log(beforeOp + operationVariable + afterOp) //* Logic here to do the operation on before op and after op
+
+    enterBtn.addEventListener("click",()=>{ //todo: clear the beforeOp afterOp and Operation; each tiem i do it, it doesnt want to return anything anymore
         for(let i=0;i<operationNames.length; i++){
-            if (operationVariable === operationOptions[i] ){console.log(beforeOp + parseInt(operationOptions[i]) + afterOp)} //? how to make it so it uses the operations? maybe a new function andcall it here
-        //clearItems(displayELe);
+            if (operationVariable === operationOptions[i]){
+                displayELe.innerHTML = operations[i](beforeOp,afterOp);
+            } 
         operationCalled = false;
     }})
 }
 
-function clearItems(displayELe){
-    displayELe.innerHTML = ""
-        beforeOp = ""
-        afterOp = ""
-        operationVariable = ""
-}
 
 export{populate}
 
