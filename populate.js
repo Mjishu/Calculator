@@ -14,13 +14,13 @@ function populate(){
 
    numberButtonCaller(displayELement);
    operationButtonsCaller(displayELement);
-   clearButtonCaller(displayELement);
+   clearButtonCaller(displayELement,prevDisplayElement);
    EnterFunction(displayELement);
    undoFunctionality(displayELement);
 
    document.addEventListener("click",()=>{
         dispalyPrevious(prevDisplayElement);
-        console.log(`BeforeOp: ${beforeOp} AfterOp: ${afterOp}`)
+        
    })
    
 }
@@ -36,14 +36,14 @@ function operationButtonsCaller(displayELe){
             operationTouched = true;
         })})}
         
-function clearButtonCaller(displayELe){
+function clearButtonCaller(displayELe,prevElement){
     const clearButton = document.getElementById("clearButton");
     clearButton.addEventListener("click", ()=>{
         displayELe.innerHTML = "";
         beforeOp = "";
         afterOp = "";
         operationVariable = "";
-        //prevElement = "";
+        prevElement = "";
     })
 }
 
@@ -53,6 +53,7 @@ function numberButtonCaller(displayELe){
         button.addEventListener("click", () => {
             if (!operationCalled){
                 enterCalled = false;
+                console.log(enterCalled)
                 beforeOp += button.innerHTML; 
                 parseFloat(beforeOp)
                 console.log(beforeOp)
@@ -70,8 +71,8 @@ function numberButtonCaller(displayELe){
     })
 }
 
-const operationOptions = ["+","-" ,"*","÷" ]
-const operationNames = ["add", "subtract","multiply" ,"divide"]
+const operationOptions = ["+","-" ,"*","÷", "Power"]
+const operationNames = ["add", "subtract","multiply" ,"divide","Power"]
 
 const add = (x,y) => Number(x)+Number(y);
 const subtract =(x,y) => x-y;
@@ -79,7 +80,7 @@ const multiply = (x,y) => x*y;
 const divide = (x,y) => (y!== 0? x/y:NaN);
 const power = (x,y) => x**y
 
-const operations = [add,subtract,multiply,divide];
+const operations = [add,subtract,multiply,divide,power];
 
 function EnterFunction(displayELe){
     const enterBtn = document.getElementById("enterButton");
@@ -91,14 +92,15 @@ function EnterFunction(displayELe){
                 beforeOp = "";
                 afterOp = "";
                 operationVariable = "";
-            } 
+            } }
         operationCalled = false;
         enterCalled = true;
+        console.log("enterCalled status: " + enterCalled)
         afterOpCalled = false
         console.log(`afterOp: ${afterOp} beforeOp: ${beforeOp} operation: ${operationVariable}`);
         
 
-    }})
+    })
 }
 
 function undoFunctionality(dispalyEle){
@@ -132,10 +134,11 @@ function dispalyPrevious(prevEle){
         prevEle.innerHTML ="";
         prevEle.innerHTML = operationVariable;
     }
-    else if (enterCalled === true){
+    /*else if (enterCalled === true){ //! either this isn't getting called, or afterOp is empty due to the way im clearing it on enter called
         prevEle.innerHTML = "";
+        console.log(afterOp)
         prevEle.innerHTML = afterOp
-    }
+    }*/
 }
 
 export{populate}
@@ -145,4 +148,3 @@ export{populate}
 //todo: Make a squared function
 //todo: Prettify the damn thing
 //todo !! Make undo work on operations(limit button click to only once for operations? maybe with a true/false statement?)
-//! after op only works for 1 digit, anymore and it freaks out--- issue with operationCalled

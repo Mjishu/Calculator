@@ -1,7 +1,7 @@
 
 const content = document.getElementById("content");
 
-const operations = ["+", "-", "*", "÷"]
+const operations = ["+", "-", "*", "÷", "Power"]
 
 function createInput(){
     const numberWrapper = document.createElement("div");
