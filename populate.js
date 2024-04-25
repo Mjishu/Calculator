@@ -2,6 +2,9 @@ let beforeOp = '' ;
 let afterOp = "";
 let operationVariable = '';
 let operationCalled = false;
+let afterOpCalled = false;
+let enterCalled = false;
+let operationTouched = false;
 
 
 
@@ -14,6 +17,12 @@ function populate(){
    clearButtonCaller(displayELement);
    EnterFunction(displayELement);
    undoFunctionality(displayELement);
+
+   document.addEventListener("click",()=>{
+        dispalyPrevious(prevDisplayElement);
+        console.log(`BeforeOp: ${beforeOp} AfterOp: ${afterOp}`)
+   })
+   
 }
 
 function operationButtonsCaller(displayELe){
@@ -24,6 +33,7 @@ function operationButtonsCaller(displayELe){
             displayELe.innerHTML= button.innerHTML;
             console.log(button.innerHTML)
             operationCalled = true;
+            operationTouched = true;
         })})}
         
 function clearButtonCaller(displayELe){
@@ -42,6 +52,7 @@ function numberButtonCaller(displayELe){
     numberButtons.forEach(button =>{
         button.addEventListener("click", () => {
             if (!operationCalled){
+                enterCalled = false;
                 beforeOp += button.innerHTML; 
                 parseFloat(beforeOp)
                 console.log(beforeOp)
@@ -51,8 +62,9 @@ function numberButtonCaller(displayELe){
                 displayELe.innerHTML = "" 
                 afterOp += button.innerHTML;
                 parseFloat(afterOp)
-                console.log(afterOp)
                 displayELe.innerHTML = afterOp
+                afterOpCalled = true;
+                operationTouched = false;
             }
         })
     })
@@ -65,6 +77,7 @@ const add = (x,y) => Number(x)+Number(y);
 const subtract =(x,y) => x-y;
 const multiply = (x,y) => x*y;
 const divide = (x,y) => (y!== 0? x/y:NaN);
+const power = (x,y) => x**y
 
 const operations = [add,subtract,multiply,divide];
 
@@ -80,6 +93,8 @@ function EnterFunction(displayELe){
                 operationVariable = "";
             } 
         operationCalled = false;
+        enterCalled = true;
+        afterOpCalled = false
         console.log(`afterOp: ${afterOp} beforeOp: ${beforeOp} operation: ${operationVariable}`);
         
 
@@ -91,25 +106,43 @@ function undoFunctionality(dispalyEle){
     
     undoButton.addEventListener("click",()=>{ //* update dispaly element for the new number
         if(!operationCalled){
-        const beforeOpSplit = beforeOp.split("")
-        beforeOpSplit.pop()
-        beforeOp = beforeOpSplit.join(""); 
-        console.log(beforeOp)
+            const beforeOpSplit = beforeOp.split("")
+            beforeOpSplit.pop()
+            beforeOp = beforeOpSplit.join(""); 
+            console.log(beforeOp)
+            dispalyEle.innerHTML = beforeOp;
         }
         else if (operationCalled){
             const afterOpSplit = afterOp.split("")
             afterOpSplit.pop()
             afterOp =afterOpSplit.join("")
             console.log(afterOp)
+            dispalyEle.innerHTML = afterOp;
         }
+       
     })
 }
-export{populate}
 
-// ? If operationButtons called then -> switch to after op 
+function dispalyPrevious(prevEle){ 
+    if (operationTouched === true){
+        prevEle.innerHTML = ""
+        prevEle.innerHTML = beforeOp;
+    }
+    else if (afterOpCalled ===true){
+        prevEle.innerHTML ="";
+        prevEle.innerHTML = operationVariable;
+    }
+    else if (enterCalled === true){
+        prevEle.innerHTML = "";
+        prevEle.innerHTML = afterOp
+    }
+}
+
+export{populate}
 
 //todo: make the small part above displayEle that shows the previous number put in
 // todo: Keybr support and backspace button
 //todo: Make a squared function
 //todo: Prettify the damn thing
-//todo !! When undoing, it needs to update display because rn it updates the array but not the actual display values
+//todo !! Make undo work on operations(limit button click to only once for operations? maybe with a true/false statement?)
+//! after op only works for 1 digit, anymore and it freaks out--- issue with operationCalled
