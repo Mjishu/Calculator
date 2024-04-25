@@ -32,7 +32,13 @@ function createInput(){
 function createDisplay(){
     const displayEle = document.createElement("p");
     displayEle.setAttribute("id","displayElement");
+
+    const prevEle = document.createElement('p');
+    prevEle.setAttribute("id", "displayPrevElement")
     
+    const backspaceButton = document.createElement("button");
+    backspaceButton.innerHTML = "Undo";
+    backspaceButton.setAttribute("id", "backspaceButton")
 
     const clearBtn = document.createElement("button");
     clearBtn.setAttribute('id', "clearButton")
@@ -42,7 +48,7 @@ function createDisplay(){
     enterButton.setAttribute("id", "enterButton");
     enterButton.innerHTML = "Enter"
 
-    content.append(displayEle,clearBtn,enterButton)
+    content.append(displayEle,clearBtn,enterButton, prevEle, backspaceButton)
 }
 
 
