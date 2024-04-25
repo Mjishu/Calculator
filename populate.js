@@ -48,7 +48,7 @@ function numberButtonCaller(displayELe){
                 displayELe.innerHTML = beforeOp
             }
             else if (operationCalled){
-                displayELe.innerHTML = "" //* this clears it for each time called, how do I just clear it after its pressed for the fist time? and then it stays till enter is pressed
+                displayELe.innerHTML = "" 
                 afterOp += button.innerHTML;
                 parseFloat(afterOp)
                 console.log(afterOp)
@@ -112,3 +112,4 @@ export{populate}
 // todo: Keybr support and backspace button
 //todo: Make a squared function
 //todo: Prettify the damn thing
+//todo !! When undoing, it needs to update display because rn it updates the array but not the actual display values

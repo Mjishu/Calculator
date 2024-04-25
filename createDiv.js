@@ -36,6 +36,11 @@ function createDisplay(){
     const prevEle = document.createElement('p');
     prevEle.setAttribute("id", "displayPrevElement")
     
+   
+    content.append(displayEle,prevEle)
+}
+
+function createDisplayButtons(){
     const backspaceButton = document.createElement("button");
     backspaceButton.innerHTML = "Undo";
     backspaceButton.setAttribute("id", "backspaceButton")
@@ -48,8 +53,8 @@ function createDisplay(){
     enterButton.setAttribute("id", "enterButton");
     enterButton.innerHTML = "Enter"
 
-    content.append(displayEle,clearBtn,enterButton, prevEle, backspaceButton)
+    content.append(clearBtn, backspaceButton,enterButton)
 }
 
 
-export {createInput,createDisplay}
+export {createInput,createDisplay, createDisplayButtons}

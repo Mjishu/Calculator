@@ -1,8 +1,9 @@
-import {createInput, createDisplay } from "./createDiv.js";
+import {createInput, createDisplay, createDisplayButtons } from "./createDiv.js";
 import { populate } from "./populate.js";
 
-createInput();
 createDisplay();
+createInput();
+createDisplayButtons();
 
 populate();
 
